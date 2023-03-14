@@ -7,6 +7,7 @@ let products = [
     { id: "3", title: "watermelon" },
     { id: "4", title: "apple" },
     { id: "5", title: "cherry" },
+    { id: "7", title: "My job is to be happy and satisfied!!!" },
 ];
 exports.productsRepository = {
     getProducts() {
