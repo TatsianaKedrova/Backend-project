@@ -4,15 +4,17 @@ import { StatusCodes } from "http-status-codes";
 
 export const productsRouter = Router({});
 
+let productsList = productsRepository.getProducts();
+
 productsRouter.get("/", (req: Request, res: Response) => {
-  const products = productsRepository.getProducts();
+  const products = productsList;
   res.send(products);
 });
 
 productsRouter.get("/:id", (req: Request, res: Response) => {
-  const chosenProduct = productsRepository
-    .getProducts()
-    .find((product) => product.id === req.params.id);
+  const chosenProduct = productsList.find(
+    (product) => product.id === req.params.id
+  );
   res.status(StatusCodes.OK).json(chosenProduct);
 });
 
@@ -23,6 +25,6 @@ productsRouter.post("/", (req: Request, res: Response) => {
   } else {
     res.sendStatus(StatusCodes.NOT_FOUND);
   }
-  const products = productsRepository.getProducts();
+  const products = productsList;
   res.send(products);
 });
