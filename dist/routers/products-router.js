@@ -13,6 +13,7 @@ exports.productsRouter.get("/", (req, res) => {
 exports.productsRouter.get("/:id", (req, res) => {
     const chosenProduct = productsList.find((product) => product.id === req.params.id);
     if (!chosenProduct) {
+        console.log("chosen product: ", chosenProduct);
         res
             .status(http_status_codes_1.StatusCodes.NOT_FOUND)
             .json({ message: "Product with such id is not found" });

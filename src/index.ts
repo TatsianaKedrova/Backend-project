@@ -1,3 +1,4 @@
+import { addressesRouter } from "./routers/addresses-router";
 import express, { Request, Response } from "express";
 import { productsRouter } from "./routers/products-router";
 
@@ -7,6 +8,7 @@ const port = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use("/products", productsRouter);
+app.use("/addresses", addressesRouter);
 
 app.get("/", (req: Request, res: Response) => {
   let helloMessage = "Great and creative Sherif!";
