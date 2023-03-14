@@ -5,11 +5,14 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "http-status-codes": "^2.2.0"
   },
   "scripts": {
     "watch": "tsc -w",
-    "dev": "yarn nodemon --inspect ./dist/index.js"
+    "dev": "yarn nodemon --inspect ./dist/index.js",
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
