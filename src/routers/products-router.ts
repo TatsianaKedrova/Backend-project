@@ -17,9 +17,10 @@ productsRouter.get("/:id", (req: Request, res: Response) => {
   );
 
   if (!chosenProduct) {
+    console.log("chosen product: ", chosenProduct);
     res
       .status(StatusCodes.NOT_FOUND)
-      .send({ message: "Product with such id is not found" });
+      .json({ message: "Product with such id is not found" });
   }
 
   res.status(StatusCodes.OK).json(chosenProduct);
@@ -35,3 +36,5 @@ productsRouter.post("/", (req: Request, res: Response) => {
   const products = productsList;
   res.send(products);
 });
+
+// fetch("http://localhost:3000/products").then(res => res.json()).then(res => console.log(res))

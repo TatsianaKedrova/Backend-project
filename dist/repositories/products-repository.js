@@ -25,3 +25,4 @@ exports.productsRepository = {
         return newProduct;
     },
 };
+//# sourceMappingURL=products-repository.js.map
