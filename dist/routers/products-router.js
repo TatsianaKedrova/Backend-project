@@ -8,7 +8,16 @@ exports.productsRouter = (0, express_1.Router)({});
 let productsList = products_repository_1.productsRepository.getProducts();
 exports.productsRouter.get("/", (req, res) => {
     const products = productsList;
-    res.send(products);
+    if (req.query.title) {
+        let searchString = req.query.title.toString();
+        const filteredByTitleProducts = products.filter((el) => el.title.indexOf(searchString) > -1
+        // el.title.includes(searchString)
+        );
+        res.send(filteredByTitleProducts);
+    }
+    else {
+        res.send(products);
+    }
 });
 exports.productsRouter.get("/:id", (req, res) => {
     const chosenProduct = productsList.find((product) => product.id === req.params.id);

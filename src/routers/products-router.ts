@@ -8,7 +8,16 @@ let productsList = productsRepository.getProducts();
 
 productsRouter.get("/", (req: Request, res: Response) => {
   const products = productsList;
-  res.send(products);
+  if (req.query.title) {
+    let searchString = req.query.title.toString();
+    const filteredByTitleProducts = products.filter(
+      (el) => el.title.indexOf(searchString) > -1
+      // el.title.includes(searchString)
+    );
+    res.send(filteredByTitleProducts);
+  } else {
+    res.send(products);
+  }
 });
 
 productsRouter.get("/:id", (req: Request, res: Response) => {
