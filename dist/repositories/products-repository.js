@@ -18,7 +18,7 @@ exports.productsRepository = {
         return products;
     },
     createProduct(title) {
-        if (!title.trim()) {
+        if (!title || !title.trim()) {
             return null;
         }
         const newProduct = {

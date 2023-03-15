@@ -21,7 +21,7 @@ export const productsRepository = {
     return products;
   },
   createProduct(title: string): ProductType | null {
-    if (!title.trim()) {
+    if (!title || !title.trim()) {
       return null;
     }
     const newProduct: ProductType = {
