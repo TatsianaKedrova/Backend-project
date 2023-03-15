@@ -21,7 +21,7 @@ export const productsRepository = {
     return products;
   },
   createProduct(title: string): ProductType | null {
-    if (!title || !title.trim()) {
+    if (!title || !title.trim() || typeof title == 'number') {
       return null;
     }
     const newProduct: ProductType = {
