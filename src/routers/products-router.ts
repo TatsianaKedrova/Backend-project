@@ -61,12 +61,14 @@ productsRouter.delete("/:id", (req: Request, res: Response) => {
 productsRouter.post("/", (req: Request, res: Response) => {
   const newProduct = productsRepository.createProduct(req.body.title);
   if (newProduct) {
+    res.set({
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    });
     res.status(StatusCodes.CREATED).send(newProduct);
   } else {
     res.sendStatus(StatusCodes.NOT_FOUND);
   }
-  const products = productsList;
-  res.send(products);
 });
 
 productsRouter;

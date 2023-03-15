@@ -54,13 +54,15 @@ exports.productsRouter.delete("/:id", (req, res) => {
 exports.productsRouter.post("/", (req, res) => {
     const newProduct = products_repository_1.productsRepository.createProduct(req.body.title);
     if (newProduct) {
+        res.set({
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        });
         res.status(http_status_codes_1.StatusCodes.CREATED).send(newProduct);
     }
     else {
         res.sendStatus(http_status_codes_1.StatusCodes.NOT_FOUND);
     }
-    const products = productsList;
-    res.send(products);
 });
 exports.productsRouter;
 // fetch("http://localhost:3000/products").then(res => res.json()).then(res => console.log(res))
