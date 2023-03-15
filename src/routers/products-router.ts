@@ -35,6 +35,20 @@ productsRouter.get("/:id", (req: Request, res: Response) => {
   res.status(StatusCodes.OK).json(chosenProduct);
 });
 
+productsRouter.delete("/:id", (req: Request, res: Response) => {
+  const chosenProduct = productsList.find(
+    (product) => product.id === req.params.id
+  );
+
+  if (!chosenProduct) {
+    res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ message: "Product with such id is not found" });
+  }
+
+  res.sendStatus(StatusCodes.NO_CONTENT);
+});
+
 productsRouter.post("/", (req: Request, res: Response) => {
   const newProduct = productsRepository.createProduct(req.body.title);
   if (newProduct) {
@@ -45,5 +59,7 @@ productsRouter.post("/", (req: Request, res: Response) => {
   const products = productsList;
   res.send(products);
 });
+
+productsRouter;
 
 // fetch("http://localhost:3000/products").then(res => res.json()).then(res => console.log(res))

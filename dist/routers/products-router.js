@@ -29,6 +29,15 @@ exports.productsRouter.get("/:id", (req, res) => {
     }
     res.status(http_status_codes_1.StatusCodes.OK).json(chosenProduct);
 });
+exports.productsRouter.delete("/:id", (req, res) => {
+    const chosenProduct = productsList.find((product) => product.id === req.params.id);
+    if (!chosenProduct) {
+        res
+            .status(http_status_codes_1.StatusCodes.NOT_FOUND)
+            .json({ message: "Product with such id is not found" });
+    }
+    res.sendStatus(http_status_codes_1.StatusCodes.NO_CONTENT);
+});
 exports.productsRouter.post("/", (req, res) => {
     const newProduct = products_repository_1.productsRepository.createProduct(req.body.title);
     if (newProduct) {
@@ -40,5 +49,6 @@ exports.productsRouter.post("/", (req, res) => {
     const products = productsList;
     res.send(products);
 });
+exports.productsRouter;
 // fetch("http://localhost:3000/products").then(res => res.json()).then(res => console.log(res))
 //# sourceMappingURL=products-router.js.map
