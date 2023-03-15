@@ -22,7 +22,6 @@ exports.productsRouter.get("/", (req, res) => {
 exports.productsRouter.get("/:id", (req, res) => {
     const chosenProduct = productsList.find((product) => product.id === req.params.id);
     if (!chosenProduct) {
-        console.log("chosen product: ", chosenProduct);
         res
             .status(http_status_codes_1.StatusCodes.NOT_FOUND)
             .json({ message: "Product with such id is not found" });
@@ -38,18 +37,6 @@ exports.productsRouter.delete("/:id", (req, res) => {
         }
     }
     res.sendStatus(http_status_codes_1.StatusCodes.NOT_FOUND);
-    // const chosenProduct = productsList.find(
-    //   (product) => product.id === req.params.id
-    // );
-    // if (!chosenProduct) {
-    //   res
-    //     .status(StatusCodes.NOT_FOUND)
-    //     .json({ message: "Product with such id is not found" });
-    // } else {
-    //   const productIndex = productsList.indexOf(chosenProduct);
-    //   productsList.splice(productIndex, 1);
-    //   res.sendStatus(StatusCodes.NO_CONTENT);
-    // }
 });
 exports.productsRouter.post("/", (req, res) => {
     const newProduct = products_repository_1.productsRepository.createProduct(req.body.title);
@@ -64,6 +51,17 @@ exports.productsRouter.post("/", (req, res) => {
         res.sendStatus(http_status_codes_1.StatusCodes.NOT_FOUND);
     }
 });
-exports.productsRouter;
+exports.productsRouter.put("/:id", (req, res) => {
+    const productToBeUpdated = productsList.find((el) => el.id === req.params.id);
+    if (!productToBeUpdated) {
+        res
+            .status(http_status_codes_1.StatusCodes.NOT_FOUND)
+            .json({ message: "Product with such id is not found" });
+    }
+    else {
+        productToBeUpdated.title = req.body.title;
+        res.status(http_status_codes_1.StatusCodes.OK).send(productToBeUpdated);
+    }
+});
 // fetch("http://localhost:3000/products").then(res => res.json()).then(res => console.log(res))
 //# sourceMappingURL=products-router.js.map

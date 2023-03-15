@@ -26,7 +26,6 @@ productsRouter.get("/:id", (req: Request, res: Response) => {
   );
 
   if (!chosenProduct) {
-    console.log("chosen product: ", chosenProduct);
     res
       .status(StatusCodes.NOT_FOUND)
       .json({ message: "Product with such id is not found" });
@@ -44,18 +43,6 @@ productsRouter.delete("/:id", (req: Request, res: Response) => {
     }
   }
   res.sendStatus(StatusCodes.NOT_FOUND);
-  // const chosenProduct = productsList.find(
-  //   (product) => product.id === req.params.id
-  // );
-  // if (!chosenProduct) {
-  //   res
-  //     .status(StatusCodes.NOT_FOUND)
-  //     .json({ message: "Product with such id is not found" });
-  // } else {
-  //   const productIndex = productsList.indexOf(chosenProduct);
-  //   productsList.splice(productIndex, 1);
-  //   res.sendStatus(StatusCodes.NO_CONTENT);
-  // }
 });
 
 productsRouter.post("/", (req: Request, res: Response) => {
@@ -71,6 +58,15 @@ productsRouter.post("/", (req: Request, res: Response) => {
   }
 });
 
-productsRouter;
-
+productsRouter.put("/:id", (req: Request, res: Response) => {
+  const productToBeUpdated = productsList.find((el) => el.id === req.params.id);
+  if (!productToBeUpdated) {
+    res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ message: "Product with such id is not found" });
+  } else {
+    productToBeUpdated.title = req.body.title;
+    res.status(StatusCodes.OK).send(productToBeUpdated);
+  }
+});
 // fetch("http://localhost:3000/products").then(res => res.json()).then(res => console.log(res))
