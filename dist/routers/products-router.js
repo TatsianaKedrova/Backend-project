@@ -30,13 +30,26 @@ exports.productsRouter.get("/:id", (req, res) => {
     res.status(http_status_codes_1.StatusCodes.OK).json(chosenProduct);
 });
 exports.productsRouter.delete("/:id", (req, res) => {
-    const chosenProduct = productsList.find((product) => product.id === req.params.id);
-    if (!chosenProduct) {
-        res
-            .status(http_status_codes_1.StatusCodes.NOT_FOUND)
-            .json({ message: "Product with such id is not found" });
+    for (let i = 0; i < productsList.length; i++) {
+        if (productsList[i].id === req.params.id) {
+            productsList.splice(i, 1);
+            res.sendStatus(http_status_codes_1.StatusCodes.NO_CONTENT);
+            return;
+        }
     }
-    res.sendStatus(http_status_codes_1.StatusCodes.NO_CONTENT);
+    res.sendStatus(http_status_codes_1.StatusCodes.NOT_FOUND);
+    // const chosenProduct = productsList.find(
+    //   (product) => product.id === req.params.id
+    // );
+    // if (!chosenProduct) {
+    //   res
+    //     .status(StatusCodes.NOT_FOUND)
+    //     .json({ message: "Product with such id is not found" });
+    // } else {
+    //   const productIndex = productsList.indexOf(chosenProduct);
+    //   productsList.splice(productIndex, 1);
+    //   res.sendStatus(StatusCodes.NO_CONTENT);
+    // }
 });
 exports.productsRouter.post("/", (req, res) => {
     const newProduct = products_repository_1.productsRepository.createProduct(req.body.title);

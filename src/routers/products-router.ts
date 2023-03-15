@@ -36,17 +36,26 @@ productsRouter.get("/:id", (req: Request, res: Response) => {
 });
 
 productsRouter.delete("/:id", (req: Request, res: Response) => {
-  const chosenProduct = productsList.find(
-    (product) => product.id === req.params.id
-  );
-
-  if (!chosenProduct) {
-    res
-      .status(StatusCodes.NOT_FOUND)
-      .json({ message: "Product with such id is not found" });
+  for (let i = 0; i < productsList.length; i++) {
+    if (productsList[i].id === req.params.id) {
+      productsList.splice(i, 1);
+      res.sendStatus(StatusCodes.NO_CONTENT);
+      return;
+    }
   }
-
-  res.sendStatus(StatusCodes.NO_CONTENT);
+  res.sendStatus(StatusCodes.NOT_FOUND);
+  // const chosenProduct = productsList.find(
+  //   (product) => product.id === req.params.id
+  // );
+  // if (!chosenProduct) {
+  //   res
+  //     .status(StatusCodes.NOT_FOUND)
+  //     .json({ message: "Product with such id is not found" });
+  // } else {
+  //   const productIndex = productsList.indexOf(chosenProduct);
+  //   productsList.splice(productIndex, 1);
+  //   res.sendStatus(StatusCodes.NO_CONTENT);
+  // }
 });
 
 productsRouter.post("/", (req: Request, res: Response) => {
